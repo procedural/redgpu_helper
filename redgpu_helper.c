@@ -73,6 +73,14 @@ REDGPU_DECLSPEC unsigned REDGPU_API redHelperGetMemoryTypeIndex(const RedGpuInfo
         return i;
       }
     }
+    for (unsigned i = 0; i < memoryTypesCount; i += 1) {
+      const RedMemoryType * type = &memoryTypes[i];
+      if (type->isCpuMappable == 1 &&
+          type->isCpuCoherent == 1 && memoryTypeIsSupported[i] == 1)
+      {
+        return i;
+      }
+    }
   }
 
   return -1;
