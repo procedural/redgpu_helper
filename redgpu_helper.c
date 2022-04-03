@@ -102,12 +102,12 @@ REDGPU_DECLSPEC void REDGPU_API redHelperImageSetStateUsable(RedContext context,
     }
   }
   unsigned queueFamilyIndex = context->gpus[gpuIndex].queuesFamilyIndex[queueIndex];
-  RedCallProceduresAndAddresses callPAs = {};
+  RedCallProceduresAndAddresses callPAs = {0};
   redGetCallProceduresAndAddresses(context, gpu, &callPAs, outStatuses, optionalFile, optionalLine, optionalUserData);
-  RedCalls calls = {};
+  RedCalls calls = {0};
   redCreateCalls(context, gpu, 0, queueFamilyIndex, &calls, outStatuses, optionalFile, optionalLine, optionalUserData);
   redCallsSet(context, gpu, calls.handle, calls.memory, calls.reusable, outStatuses, optionalFile, optionalLine, optionalUserData);
-  RedUsageImage imageUsage = {};
+  RedUsageImage imageUsage = {0};
   imageUsage.barrierSplit           = RED_BARRIER_SPLIT_NONE;
   imageUsage.oldAccessStages        = 0;
   imageUsage.newAccessStages        = 0;
@@ -125,7 +125,7 @@ REDGPU_DECLSPEC void REDGPU_API redHelperImageSetStateUsable(RedContext context,
   imageUsage.imageLayersCount       =-1;
   redCallUsageAliasOrderBarrier(callPAs.redCallUsageAliasOrderBarrier, calls.handle, context, 0, 0, 1, &imageUsage, 0, 0, 0, 0, 0);
   redCallsEnd(context, gpu, calls.handle, calls.memory, outStatuses, optionalFile, optionalLine, optionalUserData);
-  RedGpuTimeline timeline = {};
+  RedGpuTimeline timeline = {0};
   timeline.setTo4                            = 4;
   timeline.setTo0                            = 0;
   timeline.waitForAndUnsignalGpuSignalsCount = 0;
